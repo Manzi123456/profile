@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MY PROFILE</title>
+  <style>
+
+
+
+    :root{
+      --bg:#0f172a; /* slate-900 */
+      --card:#111827ee; /* gray-900 */
+      --muted:#94a3b8; /* slate-400 */
+      --text:#e5e7eb; /* gray-200 */
+      --accent:#22c55e; /* green-500 */
+      --accent-2:#60a5fa; /* blue-400 */
+      --danger:#ef4444; /* red-500 */
+      --warning:#f59e0b; /* amber-500 */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,"Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji";background:linear-gradient(180deg,#0b1220,#0f172a 30%,#0b1220);color:var(--text)}
+    header{position:sticky;top:0;background:linear-gradient(180deg,var(--bg),#0b1220d0);backdrop-filter:blur(8px);z-index:10;border-bottom:1px solid #1f2937}
+    .wrap{max-width:1100px;margin:0 auto;padding:16px}
+    .title{display:flex;align-items:center;gap:12px}
+    .title h1{font-size:22px;margin:0}
+    .badge{font-size:12px;color:#0b1220;background:var(--accent);padding:2px 8px;border-radius:999px}
+    .controls{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+    .control{background:var(--card);border:1px solid #1f2937;border-radius:14px;padding:8px 10px;display:flex;align-items:center;gap:8px}
+    .btn{cursor:pointer;border:1px solid #1f2937;background:#0b1220; color:var(--text);padding:10px 14px;border-radius:12px;transition:transform .05s ease,background .2s ease,opacity .2s ease}
+    .btn:hover{background:#0c1323}
+    .btn:active{transform:scale(0.98)}
+    .btn.primary{background:linear-gradient(135deg,#0ea5e9,#22c55e);border:none;color:#021017}
+    .btn.danger{background:linear-gradient(135deg,#ef4444,#f59e0b);border:none;color:#1a0b0b}
+    .btn.secondary{background:#111827}
+    .muted{color:var(--muted)}
+
+    /* Uploader */
+    .dropzone{margin-top:16px;border:2px dashed #334155;border-radius:16px;padding:24px;text-align:center;transition:border .2s ease, background .2s ease}
+    .dropzone.dragover{border-color:var(--accent-2);background:#0b122080}
+
+    input[type="file"]{display:none}
+    label[for="fileInput"]{display:inline-flex;gap:8px;align-items:center}
+
+    /* Gallery */
+    .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:18px 0}
+    .search{flex:1;min-width:200px}
+    .search input{width:100%;padding:12px 14px;background:#0b1220;border:1px solid #1f2937;border-radius:12px;color:var(--text)}
+    .select{background:#0b1220;border:1px solid #1f2937;border-radius:12px;padding:10px 12px;color:var(--text)}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+    .card{background:var(--card);border:1px solid #1f2937;border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+    .thumb{aspect-ratio:16/10;background:#0b1220;display:grid;place-items:center}
+    .thumb img{max-width:100%;max-height:100%;object-fit:cover}
+    .thumb .file-icon{font-size:42px;opacity:.8}
+    .meta{padding:12px 12px 6px}
+    .name{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .sub{font-size:12px;color:var(--muted)}
+    .row{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:12px}
+    .row .btn{padding:8px 10px;border-radius:10px}
+
+    .empty{border:1px dashed #374151;border-radius:16px;padding:24px;text-align:center;color:var(--muted)}
+
+    /* Modal */
+    dialog{border:none;border-radius:16px;max-width:95vw;width:980px;background:#0b1220;color:var(--text);padding:0;box-shadow:0 10px 35px rgba(0,0,0,.5)}
+    dialog::backdrop{background:rgba(2,6,23,.7)}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #182230}
+    .modal-body{height:min(78vh, calc(100dvh - 180px));display:flex}
+    .viewer{flex:1;background:#0b1220}
+    .viewer iframe{width:100%;height:100%;border:0;background:#0b1220}
+    .modal-foot{padding:12px 16px;border-top:1px solid #182230;display:flex;justify-content:flex-end;gap:8px}
+
+    @media (max-width:640px){
+      .row{flex-wrap:wrap}
+      dialog{width:96vw}
+    }
+  </style>
+   <!-- Hero -->
+  <section class="profile-hero">
+    <style type="text/css">
+       .profile-hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      max-width: 900px;
+      margin: 30px auto;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    .profile-hero img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid #00bcd4;
+      margin-bottom: 20px;
+    }
+
+    .profile-hero h1 {
+      font-size: 2.2rem;
+      color: #00bcd4;
+    }
+
+    .profile-hero p {
+      margin: 8px 0;
+    }
+    </style>
+    <h1> MYPROFILE</h1>
+
+    <img src="d.jpg" alt="Profile Picture">
+    <h1>MANZI Jean Bosco</h1>
+    <p>Web Developer | Junior Cyber Security Analyst</p>
+    <p><em>"Loving your job isn't enough, you must do it with passion."</em></p>
+
+
+  <!-- Identification -->
+  <section id="identification" class="container">
+     
+  
+    <h2>Personal Identification</h2>
+    <p><b>First Name:</b> Manzi</p>
+    <p><b>Last Name:</b> Jean Bosco</p>
+    <p><b>Father’s Name:</b> Karemera Jean</p>
+    <p><b>Mother’s Name:</b> xxxx</p>
+    <p><b>Date of Birth:</b> 21<sup>st</sup> August 2002</p>
+    <p><b>Marital Status:</b> Single</p>
+    <p><b>Email:</b> manzijean967@gmail.com</p>
+    <p><b>Phone:</b> +250 782881293 | 0725699120 |</p>
+  </section>
+
+  <!-- Birth -->
+  <section id="birth" class="container">
+    <h2>Place of Birth</h2>
+    <p><b>Country:</b> Rwanda</p>
+    <p><b>Province:</b> Southern</p>
+    <p><b>District:</b> Huye</p>
+    <p><b>Sector:</b> Huye</p>
+  </section>
+
+  <!-- Residence -->
+  <section id="residence" class="container">
+    <h2>Place of Residence</h2>
+    <p><b>Country:</b> Rwanda</p>
+    <p><b>Province:</b> Southern</p>
+    <p><b>District:</b> Huye</p>
+    <p><b>Sector:</b> Huye</p>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="container">
+    <h2>Education Background</h2>
+    <ul>
+      <li><b>2009–2016:</b> Groupe Scolaire Mpungwe – Primary Level Certificate</li>
+      <li><b>2017–2019:</b> Groupe Scolaire – O'Level Certificate</li>
+      <li><b>2020–2023:</b> APENA TSS – A2 Certificate in Software Development</li>
+      <li><b>2024–2025:</b> RP Tumba College – Studying ICT</li>
+    </ul>
+    <section class="main-section" id="Language Speaken">
+        <header>
+          <h2>Language Speaken</h2>
+        </header>
+        
+                  <div id="table">
+  <br>
+  
+  <table  width="90" cellpadding="8px" border="2" style="color: green; border:12px dotted #ffff;">
+    <tr>
+    <th>LANGUAGE</th>
+    <th>SPEAKING</th>
+    <th>READING</th>
+    <th>WRITING</th>
+  </tr>
+  <tr>
+    <td>IKINYARWANDA </td>
+    <td>Excellent</td>
+    <td>Excellent </td>
+    <td>Excellent</td>
+  </td>
+  <tr>
+    <td>ENGLISH </td>
+    <td>Very Good </td>
+    <td> Very Good </td>
+    <td> Very Good</td>
+    </tr>
+<tr>
+  <td>FRANCH </td>
+  <td>Good</td>
+  <td>Good</td>
+  <td>Good</td>
+</tr>
+</tr>
+
+
+  
+    
+</table>
+<section id="references" class="container">
+  <style type="text/css">
+  /* References table */
+.ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ref-table th, .ref-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.ref-table th {
+  background: rgba(0, 188, 212, 0.15);
+  color: #00bcd4;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.ref-table tr {
+  transition: background 0.3s ease;
+}
+
+.ref-table tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ref-table tr:hover {
+  background: rgba(0, 188, 212, 0.1);
+}
+
+  <h2>References</h2>
+  <table class="ref-table">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Referee</th>
+        <th>Position</th>
+        <th>Contact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>MIGABO VITAL</td>
+        <td>Secretary Executive</td>
+        <td>0788659929</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>UWIMANA FOUSTIN</td>
+        <td>School Manager</td>
+        <td>0782886663</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>BANGAMWABO JEAN BOSCO</td>
+        <td>Self-Employment</td>
+        <td>0780122144</td>
+      </tr>
+    </tbody>
+  </div>
+  </style>
+
+</div>
+      </section>
+      </section>
+
+  </style>
+    </section>
+  </section>
+  <div class="hh">
+    
+
+
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="title">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c2.761 0 5-2.239 5-5S14.761 2 12 2 7 4.239 7 7s2.239 5 5 5Z" stroke="#60a5fa" stroke-width="1.5"/><path d="M3.369 20.251A8.962 8.962 0 0 1 12 15c3.397 0 6.346 1.887 7.93 4.65.422.727.633 1.091.62 1.508-.01.322-.153.588-.376.806C19.79 22.5 15.77 22.5 12 22.5c-3.77 0-7.79 0-8.174-.536a1.29 1.29 0 0 1-.376-.806c-.014-.417.197-.781.62-1.507Z" stroke="#22c55e" stroke-width="1.5"/></svg>
+        <h1>MY QUALIFICATION</h1>
+        <span class="badge"> AND CERTIFICATE</span>
+      </div>
+      <div class="controls">
+        <style type="text/css">
+
+        .controls {
+  visibility: hidden; /* Igice kiracyariho, ariko kidashobora kugaragara cyangwa gukorwaho */
+}
+</style>
+
+        <div class="control">
+          <label for="fileInput" class="btn primary">+ Hitamo Dosiye / Upload</label>
+          <input id="fileInput" type="file" multiple accept="image/*,.pdf,.txt,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.csv,.zip,.rar,.7z,.json" />
+          <span class="muted">Shyira amafoto & inyandiko (PDF is best for preview)</span>
+        </div>
+        <button id="exportBtn" class="btn secondary" title="Backup all to a zip">Backup Export</button>
+        <button id="importBtn" class="btn secondary">Restore Import</button>
+        <input id="importFile" type="file" accept="application/json" hidden />
+        <button id="clearBtn" class="btn danger">Siba byose</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="dropzone" class="dropzone">
+       <strong>There’s no rest for the hardworking  <br>Loving your job isn't enough, you must do it with passion./ My sacrifice fuels my dreams <br>I never start something without finishing it<br>Today's effort is the source of tomorrow’s success
+        <h1>GOD IS ALL</strong> 
+      <div class="muted" style="margin-top:6px">.</div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search"><input id="search" type="search" placeholder="search name..."/></div>
+      <select id="typeFilter" class="select">
+        <option value="all">choose Type</option>
+        <option value="image">photo</option>
+        <option value="pdf">PDF</option>
+        <option value="other">other</option>
+      </select>
+      <select id="sortBy" class="select">
+        <style type="text/css">
+          .select{
+            visibility: hidden;
+          }
+        </style>
+        <option value="date_desc">Byo ku isaha (bishya hejuru)</option>
+        <option value="date_asc">Byo ku isaha (bisaza hejuru)</option>
+        <option value="name_asc">Izina (A→Z)</option>
+        <option value="name_desc">Izina (Z→A)</option>
+        <option value="size_desc">Ingano (nini→nto)</option>
+        <option value="size_asc">Ingano (nto→nini)</option>
+      </select>
+    </div>
+
+    <section id="grid" class="grid"></section>
+    <div id="empty" class="empty" ><
+  </main>
+
+  <dialog id="viewerModal">
+    <div class="modal-head">
+      <div style="display:flex;align-items:center;gap:10px">
+        <strong id="modalName">Preview</strong>
+        <span class="sub" id="modalMeta"></span>
+      </div>
+      <div>
+        <button class="btn secondary" id="downloadBtn">Download</button>
+        <button class="btn" id="closeModal">Funga</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="viewer">
+        <iframe id="previewFrame" title="File preview"></iframe>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <span class="muted">Tip: PDF & Images zerekwa neza muri browser. Ibindi bifungura nka download.</span>
+    </div>
+  </dialog>
+
+  <script>
+    // ======= IndexedDB Helper =======
+    const DB_NAME = 'dynamicUploads';
+    const STORE = 'files';
+    const DB_VERSION = 1;
+    let db;
+
+    function openDB(){
+      return new Promise((resolve,reject)=>{
+        const req = indexedDB.open(DB_NAME, DB_VERSION);
+        req.onupgradeneeded = (e)=>{
+          const db = e.target.result;
+          if(!db.objectStoreNames.contains(STORE)){
+            const os = db.createObjectStore(STORE, { keyPath:'id', autoIncrement:true });
+            os.createIndex('name','name',{unique:false});
+            os.createIndex('type','type',{unique:false});
+            os.createIndex('createdAt','createdAt',{unique:false});
+          }
+        };
+        req.onsuccess = ()=>{ db = req.result; resolve(db); };
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+
+    function tx(storeMode='readonly'){
+      const t = db.transaction(STORE, storeMode);
+      return [t, t.objectStore(STORE)];
+    }
+
+    async function addFile(file){
+      const arrayBuffer = await file.arrayBuffer();
+      const record = {
+        name: file.name,
+        size: file.size,
+        type: getKind(file.type, file.name),
+        mime: file.type || guessMime(file.name),
+        createdAt: Date.now(),
+        blob: new Blob([arrayBuffer], { type: file.type || guessMime(file.name) })
+      };
+      return new Promise((resolve,reject)=>{
+        const [t,store] = tx('readwrite');
+        const req = store.add(record);
+        req.onsuccess = ()=>resolve(req.result);
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+
+    function getAll(){
+      return new Promise((resolve,reject)=>{
+        const [t,store] = tx('readonly');
+        const req = store.getAll();
+        req.onsuccess = ()=>resolve(req.result);
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+
+    function deleteById(id){
+      return new Promise((resolve,reject)=>{
+        const [t,store]=tx('readwrite');
+        const req = store.delete(id);
+        req.onsuccess = ()=>resolve();
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+
+    function clearAll(){
+      return new Promise((resolve,reject)=>{
+        const [t,store]=tx('readwrite');
+        const req = store.clear();
+        req.onsuccess = ()=>resolve();
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+
+    function getById(id){
+      return new Promise((resolve,reject)=>{
+        const [t,store]=tx('readonly');
+        const req = store.get(id);
+        req.onsuccess = ()=>resolve(req.result);
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+
+    // ======= Utils =======
+    const fileIcon = (kind)=>({
+      image:'🖼️', pdf:'📄', other:'📦'
+    })[kind]||'📦';
+
+    function bytes(n){
+      const units=['B','KB','MB','GB'];
+      let i=0, v=n;
+      while(v>=1024 && i<units.length-1){v/=1024;i++;}
+      return `${v.toFixed(v>=100||i===0?0:1)} ${units[i]}`;
+    }
+
+    function getKind(mime, name){
+      const ext = name.split('.').pop().toLowerCase();
+      if((mime||'').startsWith('image/') || ['png','jpg','jpeg','gif','webp','bmp','svg'].includes(ext)) return 'image';
+      if((mime||'')==='application/pdf' || ext==='pdf') return 'pdf';
+      return 'other';
+    }
+
+    function guessMime(name){
+      const ext = name.split('.').pop().toLowerCase();
+      const map = { pdf:'application/pdf', png:'image/png', jpg:'image/jpeg', jpeg:'image/jpeg', webp:'image/webp', gif:'image/gif', svg:'image/svg+xml', txt:'text/plain', csv:'text/csv', json:'application/json' };
+      return map[ext] || 'application/octet-stream';
+    }
+
+    function bySort(key){
+      switch(key){
+        case 'date_desc': return (a,b)=>b.createdAt-a.createdAt;
+        case 'date_asc': return (a,b)=>a.createdAt-b.createdAt;
+        case 'name_asc': return (a,b)=>a.name.localeCompare(b.name);
+        case 'name_desc': return (a,b)=>b.name.localeCompare(a.name);
+        case 'size_desc': return (a,b)=>b.size-a.size;
+        case 'size_asc': return (a,b)=>a.size-b.size;
+        default: return (a,b)=>b.createdAt-a.createdAt;
+      }
+    }
+
+    function toURL(blob){ return URL.createObjectURL(blob); }
+
+    // ======= Rendering =======
+    const grid = document.getElementById('grid');
+    const empty = document.getElementById('empty');
+
+    function render(items){
+      grid.innerHTML = '';
+      if(!items.length){ empty.style.display='block'; return; }
+      empty.style.display='none';
+      const frag = document.createDocumentFragment();
+      for(const it of items){
+        const card = document.createElement('article');
+        card.className='card';
+        const thumb = document.createElement('div');
+        thumb.className='thumb';
+        if(it.type==='image'){
+          const img = document.createElement('img');
+          img.alt = it.name;
+          img.loading='lazy';
+          img.src = toURL(it.blob);
+          thumb.appendChild(img);
+        }else{
+          const span = document.createElement('div');
+          span.className='file-icon';
+          span.textContent = fileIcon(it.type);
+          thumb.appendChild(span);
+        }
+        card.appendChild(thumb);
+
+        const meta = document.createElement('div');
+        meta.className='meta';
+        const name = document.createElement('div');
+        name.className='name';
+        name.textContent = it.name;
+        const sub = document.createElement('div');
+        sub.className='sub';
+        const d = new Date(it.createdAt).toLocaleString();
+        sub.textContent = `${bytes(it.size)} • ${d}`;
+        meta.appendChild(name); meta.appendChild(sub);
+        card.appendChild(meta);
+
+        const row = document.createElement('div');
+        row.className='row';
+        const left = document.createElement('div');
+        const right = document.createElement('div');
+
+        const viewBtn = document.createElement('button');
+        viewBtn.className='btn';
+        viewBtn.textContent = 'Reba / View';
+        viewBtn.onclick=()=>openViewer(it);
+
+        const dlBtn = document.createElement('button');
+        dlBtn.className='btn secondary';
+        dlBtn.textContent = 'Download';
+        dlBtn.onclick=()=>downloadRecord(it);
+
+        const delBtn = document.createElement('button');
+delBtn.className = 'btn danger';
+delBtn.textContent = 'Siba';
+delBtn.onclick = async () => { 
+    await deleteById(it.id); 
+    await refresh(); 
+};
+
+// Hisha button ku buryo idagaragara
+delBtn.style.display = 'none';  // uburyo 1
+// cyangwa
+delBtn.hidden = true;           // uburyo 2
+
+
+        left.appendChild(viewBtn);
+        left.appendChild(dlBtn);
+        right.appendChild(delBtn);
+        row.appendChild(left);
+        row.appendChild(right);
+        card.appendChild(row);
+
+        frag.appendChild(card);
+      }
+      grid.appendChild(frag);
+    }
+
+    // ======= Viewer Modal =======
+    const modal = document.getElementById('viewerModal');
+    const modalName = document.getElementById('modalName');
+    const modalMeta = document.getElementById('modalMeta');
+    const previewFrame = document.getElementById('previewFrame');
+    const closeModal = document.getElementById('closeModal');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    closeModal.onclick=()=>modal.close();
+
+    function openViewer(item){
+      modalName.textContent = item.name;
+      modalMeta.textContent = ` ${bytes(item.size)} • ${new Date(item.createdAt).toLocaleString()}`;
+      const url = toURL(item.blob);
+      if(item.type==='image' || item.type==='pdf'){
+        previewFrame.src = url; // Browser handles image & PDF
+      }else{
+        // Fallback: no inline preview — prompt download
+        previewFrame.src = 'about:blank';
+        setTimeout(()=>downloadRecord(item), 50);
+      }
+      downloadBtn.onclick=()=>downloadRecord(item);
+      modal.showModal();
+    }
+
+    function downloadRecord(item){
+      const a = document.createElement('a');
+      a.href = toURL(item.blob);
+      a.download = item.name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    // ======= Search / Filter / Sort =======
+    const searchEl = document.getElementById('search');
+    const typeFilter = document.getElementById('typeFilter');
+    const sortBy = document.getElementById('sortBy');
+
+    let cache = [];
+
+    function applyFilters(){
+      const q = searchEl.value.trim().toLowerCase();
+      const f = typeFilter.value;
+      const s = sortBy.value;
+      let items = cache.slice();
+      if(q) items = items.filter(x=>x.name.toLowerCase().includes(q));
+      if(f!=='all') items = items.filter(x=>x.type===f);
+      items.sort(bySort(s));
+      render(items);
+    }
+
+    searchEl.addEventListener('input', applyFilters);
+    typeFilter.addEventListener('change', applyFilters);
+    sortBy.addEventListener('change', applyFilters);
+
+    async function refresh(){
+      cache = await getAll();
+      applyFilters();
+    }
+
+    // ======= Upload (input + DnD) =======
+    const input = document.getElementById('fileInput');
+    const dropzone = document.getElementById('dropzone');
+
+    input.addEventListener('change', async (e)=>{
+      await handleFiles(e.target.files);
+      input.value='';
+    });
+
+    async function handleFiles(fileList){
+      if(!fileList || !fileList.length) return;
+      for(const f of fileList){
+        try{
+          await addFile(f);
+        }catch(err){
+          console.error('Failed to save', f.name, err);
+          alert('Byanze kuzigama: '+ f.name +' — '+ (err?.message||err));
+        }
+      }
+      await refresh();
+    }
+
+    ;['dragenter','dragover'].forEach(ev=>dropzone.addEventListener(ev, e=>{e.preventDefault(); dropzone.classList.add('dragover');}));
+    ;['dragleave','drop'].forEach(ev=>dropzone.addEventListener(ev, e=>{e.preventDefault(); dropzone.classList.remove('dragover');}));
+
+    dropzone.addEventListener('drop', async (e)=>{
+      const files = e.dataTransfer.files;
+      await handleFiles(files);
+    });
+
+    // ======= Backup Export / Import =======
+    const exportBtn = document.getElementById('exportBtn');
+    const importBtn = document.getElementById('importBtn');
+    const importFile = document.getElementById('importFile');
+
+    exportBtn.onclick = async ()=>{
+      const items = await getAll();
+      // We will export as JSON with base64 blobs to keep it single-file
+      const serialized = await Promise.all(items.map(x=>new Promise(res=>{
+        const reader = new FileReader();
+        reader.onload = ()=>res({ ...x, blob: reader.result });
+        reader.readAsDataURL(x.blob);
+      })));
+      const blob = new Blob([JSON.stringify({version:1, exportedAt:Date.now(), items:serialized})], {type:'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      const ts = new Date().toISOString().replace(/[:.]/g,'-');
+      a.download = `dynamic-uploader-backup-${ts}.json`;
+      a.click();
+    };
+
+    importBtn.onclick = ()=>importFile.click();
+    importFile.onchange = async (e)=>{
+      const file = e.target.files?.[0];
+      if(!file) return;
+      try{
+        const text = await file.text();
+        const data = JSON.parse(text);
+        if(!data.items) throw new Error('Invalid backup file');
+        for(const it of data.items){
+          const blob = await (await fetch(it.blob)).blob();
+          const rec = new File([blob], it.name, {type: it.mime || it.type});
+          await addFile(rec);
+        }
+        await refresh();
+        alert('Restore irarangiye.');
+      }catch(err){
+        alert('Restore byanze: '+(err?.message||err));
+      } finally {
+        importFile.value='';
+      }
+    };
+
+    // ======= Clear All =======
+    document.getElementById('clearBtn').onclick = async ()=>{
+      if(confirm('Urashaka gusiba byose? Ibi ntibisubizwa.')){
+        await clearAll();
+        await refresh();
+      }
+    };
+
+    // ======= Boot =======
+    openDB().then(refresh).catch(err=>{
+      console.error(err);
+      alert('IndexedDB itabashije gufungura. Reba ukoresha HTTPS/localhost cyangwa undi browser.');
+    });
+  </script>
+  <footer class="footer">
+      <style type="text/css">
+         <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .footer {
+                       color: #fff;
+            
+        }
+        .footer span {
+            font-weight: bold;
+            color: #ffcc00;
+        }
+    </style>
+      </style>
+
+        <p>"I rarely fail—except when <span>fear</span> takes over. With <span>determination</span>, <span>hard work</span>, and <span>humility</span>, I strive for excellence."</p>
+        <p>© 2025 Manzi Jean Bosco/ manzijean967@gmail.com</p>
+    </footer>
+</body>
+</html>
